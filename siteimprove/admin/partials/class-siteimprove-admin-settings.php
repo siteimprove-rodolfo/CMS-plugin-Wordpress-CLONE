@@ -40,6 +40,7 @@ class Siteimprove_Admin_Settings {
 	public function register_section() {
 		// Register settings for siteimprove plugin settings page.
 		register_setting( 'siteimprove', 'siteimprove_token' );
+		register_setting( 'siteimprove', 'siteimprove_public_url' );
 		register_setting( 'siteimprove', 'siteimprove_api_username', 'Siteimprove_Admin_Settings::validate_api_username' );
 		register_setting( 'siteimprove', 'siteimprove_api_key', 'Siteimprove_Admin_Settings::validate_api_key' );
 
@@ -58,6 +59,23 @@ class Siteimprove_Admin_Settings {
 			'Siteimprove_Admin_Settings::siteimprove_token_field',
 			'siteimprove',
 			'siteimprove_token'
+		);
+
+		// Register a new section in the siteimprove page.
+		add_settings_section(
+			'siteimprove_public_url',
+			__( 'Public URL', 'siteimprove' ),
+			'Siteimprove_Admin_Settings::siteimprove_settings_section_title',
+			'siteimprove'
+		);
+
+		// register a new field siteimprove_token_field, inside the siteimprove_token section of the settings page.
+		add_settings_field(
+			'siteimprove_public_url',
+			__( 'Public URL', 'siteimprove' ),
+			'Siteimprove_Admin_Settings::siteimprove_public_url_field',
+			'siteimprove',
+			'siteimprove_public_url'
 		);
 
 		// Register a new section in the siteimprove page.
@@ -178,6 +196,21 @@ class Siteimprove_Admin_Settings {
 				<?php
 			}
 		}
+
+		if ( 'siteimprove_public_url' === $args['id'] ) {
+			?>
+			<p>
+			<?php
+					esc_html_e( 'Please provide the Public URL for the current site if for any reasons it\'s not the same as the Admin Panel URL. Otherwise you can leave this field empty.' );
+			?>
+			</p>
+			<p>
+			<?php
+					esc_html_e( 'Example: Website Admin Panel is hosted at: http://stg-thewebsite.com but the final Public URL will be http://thewebsite.com', 'siteimprove' );
+			?>
+			</p>
+			<?php
+		}
 	}
 
 	/**
@@ -191,6 +224,18 @@ class Siteimprove_Admin_Settings {
 
 		<input type="text" id="siteimprove_token_field" name="siteimprove_token" value="<?php echo esc_attr( get_option( 'siteimprove_token' ) ); ?>" maxlength="50" size="50" />
 		<input class="button" id="siteimprove_token_request" type="button" value="<?php echo esc_attr( __( 'Request new token', 'siteimprove' ) ); ?>" />
+		<?php
+	}
+
+	/**
+	 * Form fields
+	 *
+	 * @param mixed $args Field Arguments.
+	 * @return void
+	 */
+	public static function siteimprove_public_url_field( $args ) {
+		?>
+		<input type="text" id="siteimprove_public_url_field" name="siteimprove_public_url" value="<?php echo esc_attr( get_option( 'siteimprove_public_url' ) ); ?>" maxlength="50" size="50" />
 		<?php
 	}
 

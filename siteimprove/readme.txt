@@ -39,6 +39,9 @@ Did you remember to turn off your adblocker? Some adblockers does not like our i
 
 == Changelog ==
 
+= 1.3.1 =
+* Added Public URL feature to the plugin
+
 = 1.3.0 =
 * Added Prepublish feature to the plugin
 
