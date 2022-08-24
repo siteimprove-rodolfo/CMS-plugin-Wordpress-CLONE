@@ -6,8 +6,6 @@ The code on this repository has to match the WordPress Coding Standards in order
 
 Every pull request will be checked against WPCS trough github actions.
 
-This is just a test.
-
 ## Version History
 
 ### 1.3.0
